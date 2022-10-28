@@ -1,0 +1,139 @@
+* {
+    margin: 0;
+    padding: 0;
+    color: white;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: #ffc107;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #424242;
+}
+
+.main-content {
+    flex: 1;
+}
+
+
+.logo,
+#toggle-icon {
+    color: #ffc107;
+}
+
+.menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.menu-item {
+    width: 100%;
+    padding: 16px;
+    border-bottom: 1px #6d6d6d solid;
+    text-align: center;
+    display: none;
+}
+
+.expanded > .menu-item {
+    display: block;
+}
+
+.menu-logo-container,
+.menu-toggle {
+    display: block;
+    padding: 16px 32px;
+    font-size: 20px;
+}
+
+
+.footer {
+    padding: 8px;
+    text-align: center;
+}
+
+
+.jumbotron {
+    background-image: url("../img/jumbotron.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 2rem;
+    text-align: center;
+}
+.jumbotron-header {
+    font-size: 3rem;
+    margin: 1rem 0;
+}
+.jumbotron-description {
+    font-size: 1.2rem;
+}
+
+
+.list-heading,
+.list-description {
+    text-align: center;
+    margin: 16px 0;
+}
+
+.album-list {
+    list-style-type: none;
+}
+
+.album-list-item {
+    margin-bottom: 16px;
+    display: flex;
+    border: 1px #6d6d6d solid;
+}
+
+.album-list-item-poster {
+    display: block;
+    max-width: 200px;
+}
+
+.album-list-item-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 16px;
+}
+.album-list-item-content > * {
+    margin: 8px 0;
+}
+.album-list-item-title {
+    font-size: 1.6rem;
+}
+.album-list-item-rating {
+    font-size: 1.6rem;
+}
+
+
+@media only screen and (min-width: 992px) {
+    .menu-toggle {
+        display: none;
+    }
+
+    .menu-item {
+        display: block;
+        width: auto;
+        border-bottom: 0;
+    }
+
+    .menu-logo-container {
+        flex: 1;
+    }
+
+    .main-content,
+    .menu {
+        align-self: center;
+        width: 960px;
+    }
+}
