@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd">
+    <changeSet id="004-1" author="pyanik">
+        <createTable tableName="album_rating">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"
+                             foreignKeyName="fk_album_rating_user_id"
+                             referencedTableName="users"
+                             referencedColumnNames="id"
+                />
+            </column>
+            <column name="album_id" type="BIGINT">
+                <constraints nullable="false"
+                             foreignKeyName="fk_album_rating_album_id"
+                             referencedTableName="album"
+                             referencedColumnNames="id"
+                />
+            </column>
+            <column name="rating" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addUniqueConstraint constraintName="unique_album_rating"
+                             tableName="album_rating"
+                             columnNames="user_id, album_id"
+        />
+    </changeSet>
+</databaseChangeLog>

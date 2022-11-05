@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd">
+    <changeSet id="001-1" author="pyanik">
+        <createTable tableName="album">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="title" type="VARCHAR(100)"/>
+            <column name="artist_name" type="VARCHAR(100)"/>
+            <column name="release_date" type="DATE"/>
+            <column name="review" type="VARCHAR(10000)"/>
+            <column name="youtube_single_id" type="VARCHAR(20)"/>
+            <column name="promoted" type="BOOLEAN"/>
+            <column name="cover" type="VARCHAR(100)"/>
+            <column name="genre_id" type="BIGINT">
+                <constraints nullable="false"
+                             foreignKeyName="fk_album_genre"
+                             referencedTableName="genre"
+                             referencedColumnNames="id"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
