@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Add new music genre</title>
+</head>
+<body>
+<main class="main-content" layout:fragment="content">
+    <h2 class="list-heading">Add new music genre</h2>
+    <form action="#" th:action="@{/admin/add-genre}" method="post" class="mc-form" th:object="${genre}">
+        <label for="genreName">Name</label>
+        <input type="text" id="genreName" placeholder="e.g. Rock" th:field="*{name}">
+        <label for="albumShortDescription">Description - max 500 character</label>
+        <textarea id="albumShortDescription" rows="5" th:field="*{description}"></textarea>
+        <button type="submit">Add</button>
+    </form>
+</main>
+</body>
+</html>

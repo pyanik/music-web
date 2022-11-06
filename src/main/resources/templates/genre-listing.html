@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Music genres - MusicWeb</title>
+</head>
+<body>
+<main class="main-content" layout:fragment="content">
+    <h2 class="list-heading">Music genres</h2>
+    <p class="list-description">
+        Below you will find a list of music genres in our catalog.
+        Choose something for yourself.
+    </p>
+    <ul class="list-border">
+        <li th:each="genre: ${genres}">
+            <a th:href="@{|/genre/${genre.name.toLowerCase()}|}"
+               th:text="${genre.name}">
+                Rock
+            </a>
+            <div><a href="#" th:href="@{'/genre/update/' + ${genre.name}}">Edit Genre</a>
+            <a href="#" th:href="@{'/genre/delete/' + ${genre.name}}">Delete Genre</a></div>
+        </li>
+    </ul>
+</main>
+</body>
+</html>
