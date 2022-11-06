@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Add new music album</title>
+</head>
+<body>
+<main class="main-content" layout:fragment="content">
+    <h2 class="list-heading">Add new music album</h2>
+    <form action="#" th:action="@{/admin/add-album}" method="post" enctype="multipart/form-data" class="mc-form" th:object="${album}">
+        <label for="title">Title</label>
+        <input type="text" id="title" placeholder="Sample title" th:field="*{title}">
+        <label for="artistName">Artist name</label>
+        <input type="text" id="artistName" placeholder="Example title" th:field="*{artistName}">
+        <label for="releaseDate">Release date</label>
+        <input type="date" id="releaseDate" th:field="*{releaseDate}">
+        <label for="genre">Genre</label>
+        <select id="genre" th:field="*{genre}" required>
+            <option value="" hidden>Select Genre</option>
+            <option th:each="genre: ${genres}" th:value="${genre.name}" th:text="${genre.name}"></option>
+        </select>
+        <label for="promoted">Promoted on main page?</label>
+        <input id="promoted" type="checkbox" th:field="*{promoted}">
+        <label for="cover">Cover</label>
+        <input type="file" id="cover" th:field="*{cover}" accept="image/png, image/jpeg">
+        <label for="singleId">Id of Single Youtube</label>
+        <input type="text" id="singleId" placeholder="abcdefgh" th:field="*{youtubeSingleId}">
+        <label for="review">Review</label>
+        <textarea id="review" rows="10" th:field="*{review}"></textarea>
+        <button type="submit">Add</button>
+    </form>
+</main>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pl"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<body>
+<div class="container">
+    <main class="main-content" layout:fragment="content">
+        <h2 class="list-heading" th:text="${heading}">Promoted Albums / Category Name</h2>
+        <p class="list-description" th:text="${description}">Description of the section, for example, the description of the category, or the home page</p>
+        <ul class="album-list" th:remove="all-but-first">
+            <li class="album-list-item" th:each="album: ${albums}">
+                <a href="#" th:href="@{|/album/${album.id}|}">
+                    <img src="../static/img/cover-placeholder.png"
+                         th:src="@{/img/cover-placeholder.png}"
+                         alt="album title"
+                         class="album-list-item-poster">
+                </a>
+                <div class="album-list-item-card">
+                    <div class="album-list-item-content">
+                        <h3 class="album-list-item-title">
+                            <a href="#" th:href="@{|/album/${album.id}|}" th:text="${album.title}">Album Title</a>
+                        </h3>
+                        <h4 th:text="${album.artistName}">Artist Name</h4>
+                        <p th:text="${album.releaseDate}">29-11-2018</p>
+                    </div>
+                    <div class="album-list-item-rating">
+                        <i class="fas fa-star"></i>
+                        <span th:if="${album.ratingCount}" th:text="${#numbers.formatDecimal(album.avgRating, 1, 1)}">8.7</span>
+                        <span th:if="!${album.ratingCount}">No rating</span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <nav aria-label="..." th:if = "${totalPages > 1}">
+            <ul class="pagination">
+                <span class="page-item">
+                    <a class="page-link"
+                       th:href="@{'/page/' + ${currentPage - 1}}"
+                       th:if="${currentPage < totalPages + 1 and currentPage > 1}">Previous</a>
+                </span>
+                <span th:class="${pageNumber == page.getNumber() + 1} ? 'page-item active': 'page-item'"
+                    th:each="pageNumber: ${pageNumbers}" th:if="${page.getTotalPages() > 0}">
+                    <a class="page-link"
+                       th:href="@{'/page/' + ${pageNumber}}"
+                       th:text="${pageNumber}">
+                    </a>
+                </span>
+                <span class="page-item">
+                    <a class="page-link"
+                       th:href="@{'/page/' + ${currentPage + 1}}"
+                       th:if="${currentPage < totalPages and currentPage >= 1}">Next
+                    </a>
+                </span>
+            </ul>
+        </nav>
+    </main>
+</div>
+</body>
+</html>
