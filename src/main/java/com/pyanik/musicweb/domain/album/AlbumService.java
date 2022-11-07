@@ -64,11 +64,11 @@ public class AlbumService {
     public Page<AlbumDto> findPaginatedAlbumsByGenreName(int pageNo, int pageSize, String genreName) {
         Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
         Page<Album> page = albumRepository.findAllByGenre_NameIgnoreCase(genreName, pageable);
-        List<AlbumDto> albumDtos = page
+        List<AlbumDto> albumListDto = page
                 .stream()
                 .map(albumModelMapper::mapAlbumEntityToAlbumDto)
                 .toList();
-        return new PageImpl<>(albumDtos, pageable, page.getTotalElements());
+        return new PageImpl<>(albumListDto, pageable, page.getTotalElements());
     }
 
     @Transactional
@@ -90,5 +90,11 @@ public class AlbumService {
             albumToUpdate.setCover(savedFileName);
         }
         return albumModelMapper.mapAlbumEntityToAlbumDto(albumToUpdate);
+    }
+
+    public void deleteAlbum(Long id) {
+        Album albumToDelete = albumRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        albumRepository.delete(albumToDelete);
     }
 }

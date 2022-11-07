@@ -11,10 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -63,5 +60,11 @@ class AlbumController {
                               InputAlbumDto inputAlbumDto) {
         AlbumDto updatedAlbum = albumService.updateAlbum(id, inputAlbumDto);
         return "redirect:/album/" + updatedAlbum.id();
+    }
+
+    @GetMapping("album/delete/{id}")
+    public String deleteAlbum(@PathVariable Long id) {
+        albumService.deleteAlbum(id);
+        return "redirect:/";
     }
 }

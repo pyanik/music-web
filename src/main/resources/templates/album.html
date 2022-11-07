@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pl"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout}">
+<head>
+<!--  <meta charset="UTF-8">-->
+  <title th:text="|${album.title} - MusicWeb|">Album title - MusicWeb</title>
+</head>
+<body>
+<div class="container">
+  <main class="main-content" layout:fragment="content">
+    <span sec:authorize="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')"><a href="#" th:href="@{'/album/update/' + ${album.id}}">Edit Album</a></span>
+      <span sec:authorize="hasAnyRole('ROLE_ADMIN')"> <a href="#" th:href="@{'/album/delete/' + ${album.id}}" method="get" onclick="return confirm('Are you sure you want to delete this item?');">Delete Album</a></span>
+    <section class="album">
+      <div class="album-summary">
+        <img src="../static/img/cover-placeholder.png"
+             th:src="@{/img/cover-placeholder.png}"
+             alt="album title"
+             th:alt="${album.title}"
+             class="album-summary-cover"
+        />
+        <div class="album-summary-info">
+          <h1 class="album-summary-title" th:text="${album.title}">A Momentary Lapse of Reason</h1>
+          <p class="album-summary-artist-name" th:text="${'Artist name: ' + album.artistName}">Artist name: Pink Floyd</p>
+          <p class="album-summary-item" th:text="${'Release date: ' + album.releaseDate}">Release date: 07-09-1987</p>
+          <p class="album-summary-item">Genre: <a href="#"
+                                                  th:href="@{|/genre/${album.genre}|}"
+                                                  th:text="${album.genre}">Rock</a>
+          </p>
+        </div>
+        <div class="album-rating-container">
+          <h2 class="album-section-heading">Rating</h2>
+          <p th:unless="${album.ratingCount}">No votes</p>
+          <div th:if="${album.ratingCount}">
+            <p class="album-rating-value" th:text="${#numbers.formatDecimal(album.avgRating, 1, 1)}">4.0</p>
+            <p th:text="|Number of votes: ${album.ratingCount}|">Number of votes: 134</p>
+          </div>
+          <form action="#" th:action="@{/rate-album}" method="post"
+                sec:authorize="isAuthenticated()"
+                class="album-rating-form">
+            <p>Your rating</p>
+            <input type="hidden" name="albumId" th:value="${album.id}">
+            <div class="album-rating-buttons">
+              <button class="album-rating-button"
+                      name="rating"
+                      th:each="i: ${#numbers.sequence(1, 5)}"
+                      th:value="${i}">
+                <i class="fa-star" th:classappend="${i <= userRating ? 'fa-solid' : 'fa-regular'}"></i>
+              </button>
+            </div>
+          </form>
+          <p sec:authorize="!isAuthenticated()">
+          <a href="#" th:href="@{/login}">Login</a>, to submit a vote</p>
+        </div>
+      </div>
+
+    </section>
+    <section class="album-section">
+      <h2 class="album-section-heading">Review</h2>
+      <p th:text="${album.review}">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at,
+        tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
+    </section>
+    <section class="album-single-container album-section">
+      <h2 class="album-section-heading">Single</h2>
+      <iframe width="560" height="315" class="album-single"
+              src="https://www.youtube.com/watch?v=pA26asdVH1E&ab_channel=PinkFloyd"
+              frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </section>
+  </main>
+</div>
+</body>
+</html>

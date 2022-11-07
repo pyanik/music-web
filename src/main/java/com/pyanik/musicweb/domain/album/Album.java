@@ -33,7 +33,7 @@ public class Album {
     @JoinColumn(name = "genre_id", referencedColumnName = "id")
     private Genre genre;
 
-    @OneToMany(mappedBy = "album")
+    @OneToMany(orphanRemoval = true, cascade = CascadeType.REMOVE, mappedBy = "album")
     private Set<Rating> ratings = new HashSet<>();
 
     private boolean promoted;
