@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:test
+  liquibase:
+    contexts: dev
+    change-log: classpath:db/changelog/master.xml
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  web:
+    resources:
+      static-locations: classpath:/static/,file:./uploads/
+app:
+  storage:
+    location: ./uploads/
