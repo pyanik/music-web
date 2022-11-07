@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pl"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Login - MusicWeb</title>
+</head>
+<body>
+<main class="main-content" layout:fragment="content">
+    <h2 class="list-heading">Login</h2>
+    <form action="" th:action="@{/login}" method="post" class="mc-form">
+        <p th:if="${param.error}"
+           th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"
+           class="mc-form-message">
+            Login Error.
+        </p>
+        <p th:if="${param.logout}" class="mc-form-message">
+            You have been logged out, you can log in again.
+        </p>
+        <label for="username">Email address</label>
+        <input id="username" name="username" placeholder="username">
+        <label for="password">Password</label>
+        <input id="password" name="password" placeholder="password" type="password">
+        <button type="submit">Login</button>
+        <p class="registration-link">Don't have an account yet? <a href="#" th:href="@{/registration}">Register now</a></p>
+    </form>
+</main>
+</body>
+</html>

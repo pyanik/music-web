@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Register | MusicWeb</title>
+</head>
+<body>
+<main class="main-content" layout:fragment="content">
+    <h2 class="list-heading">Register</h2>
+    <form action="#" th:action="@{/registration}" method="post" class="mc-form" th:object="${user}">
+        <label for="email">Email address</label>
+        <input id="email" type="email" placeholder="username" th:field="*{email}">
+        <label for="password">Password</label>
+        <input id="password" placeholder="password" type="password" th:field="*{password}">
+        <button type="submit">Register</button>
+    </form>
+</main>
+</body>
+</html>
